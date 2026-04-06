@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Padmavati Industries | Premium Fragrance Business</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #0d0d0d;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: #0d0d0d;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    #loader h1 {
+      color: #f5c76a;
+      font-size: 2rem;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .navbar {
+      width: 100%;
+      padding: 18px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #f5c76a;
+    }
+
+    .navbar nav {
+      display: flex;
+      gap: 24px;
+    }
+
+    .navbar nav a {
+      color: white;
+      text-decoration: none;
+      transition: 0.3s;
+      font-weight: 500;
+    }
+
+    .navbar nav a:hover {
+      color: #f5c76a;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 2rem;
+      color: #f5c76a;
+      cursor: pointer;
+    }
+
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 8%;
+      overflow: hidden;
+      background: linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.72)),
+      url('https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+    }
+
+    .hero-content {
+      max-width: 860px;
+    }
+
+    .tag {
+      color: #f5c76a;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+    }
+
+    .hero-content h1 {
+      font-size: 4.2rem;
+      font-weight: 800;
+    }
+
+    .hero-content h2 {
+      font-size: 2rem;
+      margin: 15px 0;
+      color: #f5c76a;
+    }
+
+    .description {
+      line-height: 1.9;
+      color: #ddd;
+      margin-bottom: 30px;
+      font-size: 1.05rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 26px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: 0.3s;
+      display: inline-block;
+      border: none;
+      cursor: pointer;
+    }
+
+    .primary {
+      background: #f5c76a;
+      color: #111;
+    }
+
+    .secondary {
+      border: 2px solid #f5c76a;
+      color: #f5c76a;
+      background: transparent;
+    }
+
+    .primary:hover,
+    .secondary:hover {
+      transform: translateY(-4px);
+    }
+
+    .section {
+      padding: 90px 8%;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 55px;
+    }
+
+    .section-title p {
+      color: #f5c76a;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+
+    .section-title h2 {
+      font-size: 2.7rem;
+    }
+
+    .section-title span {
+      display: inline-block;
+      width: 85px;
+      height: 4px;
+      background: #f5c76a;
+      margin-top: 15px;
+      border-radius: 10px;
+    }
+
+    .two-column,
+    .contact-container,
+    .cart-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    .info-box,
+    .product-card,
+    .feature,
+    .contact-form,
+    .contact-info,
+    .cart-summary {
+      background: rgba(255,255,255,0.05);
+      padding: 24px;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: 0.3s;
+    }
+
+    .product-grid,
+    .feature-boxes {
+      display: grid;
+      gap: 25px;
+    }
+
+    .product-grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .feature-boxes {
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+
+    .product-card:hover,
+    .feature:hover,
+    .info-box:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    }
+
+    .product-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .badge {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      background: #f5c76a;
+      color: #111;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 8px 14px;
+      border-radius: 30px;
+      z-index: 2;
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 20px;
+      margin-bottom: 18px;
+      background: #fff;
+      padding: 10px;
+    }
+
+    .product-card h3,
+    .feature h3,
+    .contact-info h3,
+    .info-box h3,
+    .cart-summary h3 {
+      color: #f5c76a;
+      margin-bottom: 12px;
+    }
+
+    .product-card p,
+    .feature p,
+    .contact-info p,
+    .info-box p,
+    .cart-summary p {
+      color: #ddd;
+      line-height: 1.8;
+    }
+
+    .product-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 18px 0;
+      flex-wrap: wrap;
+    }
+
+    .product-meta span {
+      background: rgba(245,199,106,0.12);
+      color: #f5c76a;
+      padding: 8px 14px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+    }
+
+    .search-filter-wrap {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .search-filter-wrap input,
+    .search-filter-wrap select,
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 15px;
+      border-radius: 14px;
+      border: none;
+      outline: none;
+    }
+
+    .search-filter-wrap input,
+    .search-filter-wrap select {
+      max-width: 350px;
+    }
+
+    .qty-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .qty-btn {
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      background: #f5c76a;
+      color: #111;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .qty-input {
+      width: 70px;
+      height: 40px;
+      text-align: center;
+      border-radius: 12px;
+      border: none;
+      outline: none;
+      font-weight: 700;
+    }
+
+    .product-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .buy-btn {
+      flex: 1;
+      text-align: center;
+      padding: 13px 16px;
+      border-radius: 30px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      background: #f5c76a;
+      color: #111;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      margin-bottom: 16px;
+    }
+
+    .whatsapp-btn {
+      position: fixed;
+      bottom: 22px;
+      left: 20px;
+      background: #25D366;
+      color: white;
+      padding: 14px 20px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 700;
+      z-index: 1000;
+    }
+
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 22px;
+      right: 20px;
+      padding: 14px 18px;
+      border: none;
+      border-radius: 50%;
+      background: #f5c76a;
+      color: #111;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: none;
+      z-index: 1000;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 50px 20px;
+      background: #0a0a0a;
+    }
+
+    .footer h2 {
+      color: #f5c76a;
+      margin-bottom: 10px;
+    }
+
+    .footer-links {
+      margin: 15px 0;
+    }
+
+    .footer-links a {
+      color: white;
+      text-decoration: none;
+      margin: 0 12px;
+    }
+
+    .footer-links a:hover {
+      color: #f5c76a;
+    }
+
+    .cart-item {
+      background: rgba(255,255,255,0.05);
+      padding: 14px;
+      border-radius: 16px;
+      margin-bottom: 12px;
+    }
+
+    .remove-btn {
+      margin-top: 10px;
+      background: crimson;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .cart-count {
+      background: #f5c76a;
+      color: #111;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-left: 6px;
+      font-weight: 700;
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 16px 6%;
+      }
+
+      .navbar nav {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 78px;
+        right: 6%;
+        background: #111;
+        padding: 20px;
+        border-radius: 18px;
+        width: 220px;
+      }
+
+      .navbar nav.show {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-content h2 {
+        font-size: 1.3rem;
+      }
+
+      .section {
+        padding: 75px 6%;
+      }
+
+      .section-title h2 {
+        font-size: 2rem;
+      }
+
+      .two-column,
+      .contact-container,
+      .cart-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .product-actions {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loader"><h1>Padmavati Industries</h1></div>
+
+  <header class="navbar">
+    <div class="logo">Padmavati Industries</div>
+    <nav id="navMenu">
+      <a href="#home">Home</a>
+      <a href="#products">Products</a>
+      <a href="#cart">Cart <span class="cart-count" id="cartCount">0</span></a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="menu-toggle" id="menuToggle">&#9776;</div>
+  </header>
+
+  <!-- HOME -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <p class="tag">Premium Fragrance Manufacturer</p>
+      <h1>Padmavati Industries</h1>
+      <h2>Luxury Perfumes, Deodorants & Air Fresheners</h2>
+      <p class="description">
+        Supplying premium fragrance products for retailers, wholesalers, distributors, and private label buyers.
+      </p>
+      <div class="hero-buttons">
+        <a href="#products" class="btn primary">Explore Products</a>
+        <a href="#cart" class="btn secondary">Go to Cart</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="section-title">
+      <p>ABOUT US</p>
+      <h2>Built for Fragrance Business Growth</h2>
+      <span></span>
+    </div>
+
+    <div class="two-column">
+      <div class="info-box">
+        <h3>Who We Are</h3>
+        <p>
+          Padmavati Industries is focused on premium fragrance products including perfumes,
+          deodorants, body sprays, and air fresheners. Our product presentation and packaging
+          are designed for modern wholesale and retail demand.
+        </p>
+      </div>
+
+      <div class="info-box">
+        <h3>What We Offer</h3>
+        <p>
+          We help businesses source attractive fragrance products with strong shelf appeal,
+          gifting appeal, and resale potential. Suitable for distributors, shop owners, and bulk buyers.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section">
+    <div class="section-title">
+      <p>WHY CHOOSE US</p>
+      <h2>Business Advantages</h2>
+      <span></span>
+    </div>
+
+    <div class="feature-boxes">
+      <div class="feature">
+        <h3>Bulk Ready</h3>
+        <p>Designed for wholesale, business enquiries, and high-volume supply.</p>
+      </div>
+      <div class="feature">
+        <h3>Premium Packaging</h3>
+        <p>Products designed to look strong in stores and catalogs.</p>
+      </div>
+      <div class="feature">
+        <h3>Fast Enquiry Process</h3>
+        <p>Simple contact and WhatsApp conversion flow for product enquiries.</p>
+      </div>
+      <div class="feature">
+        <h3>Wide Product Range</h3>
+        <p>Perfumes, deodorants, room fresheners, and more.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="section" id="products">
+    <div class="section-title">
+      <p>PRODUCT CATALOG</p>
+      <h2>Our Premium Collection</h2>
+      <span></span>
+    </div>
+
+    <div class="search-filter-wrap">
+      <input type="text" id="productSearch" placeholder="Search products...">
+      <select id="categoryFilter">
+        <option value="all">All Categories</option>
+        <option value="perfume">Perfume</option>
+        <option value="deodorant">Deodorant</option>
+        <option value="airfreshener">Air Freshener</option>
+      </select>
+    </div>
+
+    <div class="product-grid" id="productGrid">
+
+      <div class="product-card" data-name="Melange Doris Eau De Parfum" data-category="perfume">
+        <span class="badge">Best Seller</span>
+        <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=900&q=80" alt="Melange Doris">
+        <h3>Melange Doris Eau De Parfum</h3>
+        <p>Elegant floral fragrance with premium feminine packaging.</p>
+        <div class="product-meta">
+          <span>30 ml</span>
+          <span>MOQ: 360+</span>
+        </div>
+        <div class="qty-box">
+          <button class="qty-btn minus">-</button>
+          <input type="number" value="1" min="1" class="qty-input">
+          <button class="qty-btn plus">+</button>
+        </div>
+        <div class="product-actions">
+          <button class="buy-btn add-cart">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-name="Melange Guls Eau De Parfum" data-category="perfume">
+        <span class="badge">Hot</span>
+        <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=900&q=80" alt="Melange Guls">
+        <h3>Melange Guls Eau De Parfum</h3>
+        <p>Fresh floral perfume with attractive premium packaging.</p>
+        <div class="product-meta">
+          <span>30 ml</span>
+          <span>MOQ: 720+</span>
+        </div>
+        <div class="qty-box">
+          <button class="qty-btn minus">-</button>
+          <input type="number" value="1" min="1" class="qty-input">
+          <button class="qty-btn plus">+</button>
+        </div>
+        <div class="product-actions">
+          <button class="buy-btn add-cart">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-name="Melange Clara Perfume Spray" data-category="perfume">
+        <span class="badge">Premium</span>
+        <img src="https://images.unsplash.com/photo-1619994403073-2cec99c6f1b4?auto=format&fit=crop&w=900&q=80" alt="Melange Clara">
+        <h3>Melange Clara Perfume Spray</h3>
+        <p>Refreshing floral perfume spray with modern appeal.</p>
+        <div class="product-meta">
+          <span>30 ml</span>
+          <span>Perfume</span>
+        </div>
+        <div class="qty-box">
+          <button class="qty-btn minus">-</button>
+          <input type="number" value="1" min="1" class="qty-input">
+          <button class="qty-btn plus">+</button>
+        </div>
+        <div class="product-actions">
+          <button class="buy-btn add-cart">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-name="Melange X-ONE Deodorant Body Spray" data-category="deodorant">
+        <span class="badge">Popular</span>
+        <img src="https://images.unsplash.com/photo-1629198688000-71f23e745b6e?auto=format&fit=crop&w=900&q=80" alt="X-ONE">
+        <h3>Melange X-ONE Deodorant Body Spray</h3>
+        <p>Masculine body spray for all-day freshness and retail demand.</p>
+        <div class="product-meta">
+          <span>Men</span>
+          <span>Body Spray</span>
+        </div>
+        <div class="qty-box">
+          <button class="qty-btn minus">-</button>
+          <input type="number" value="1" min="1" class="qty-input">
+          <button class="qty-btn plus">+</button>
+        </div>
+        <div class="product-actions">
+          <button class="buy-btn add-cart">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-name="Melange Lavender Air Freshener" data-category="airfreshener">
+        <span class="badge">Fresh</span>
+        <img src="https://images.unsplash.com/photo-1615634262417-44c3aee11d89?auto=format&fit=crop&w=900&q=80" alt="Lavender Air Freshener">
+        <h3>Melange Lavender Air Freshener</h3>
+        <p>Lavender air freshener for homes, offices, and stores.</p>
+        <div class="product-meta">
+          <span>Lavender</span>
+          <span>Air Freshener</span>
+        </div>
+        <div class="qty-box">
+          <button class="qty-btn minus">-</button>
+          <input type="number" value="1" min="1" class="qty-input">
+          <button class="qty-btn plus">+</button>
+        </div>
+        <div class="product-actions">
+          <button class="buy-btn add-cart">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="product-card" data-name="Melange Lexis Perfume 100 ML" data-category="perfume">
+        <span class="badge">Luxury</span>
+        <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59d75?auto=format&fit=crop&w=900&q=80" alt="Lexis Perfume">
+        <h3>Melange Lexis Perfume 100 ML</h3>
+        <p>Luxury larger-format perfume with premium bottle styling.</p>
+        <div class="product-meta">
+          <span>100 ml</span>
+          <span>Luxury</span>
+        </div>
+        <div class="qty-box">
+          <button class="qty-btn minus">-</button>
+          <input type="number" value="1" min="1" class="qty-input">
+          <button class="qty-btn plus">+</button>
+        </div>
+        <div class="product-actions">
+          <button class="buy-btn add-cart">Add to Cart</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CART -->
+  <section class="section" id="cart">
+    <div class="section-title">
+      <p>CART / ENQUIRY</p>
+      <h2>Business Order Enquiry</h2>
+      <span></span>
+    </div>
+
+    <div class="cart-layout">
+      <div class="contact-form">
+        <h3 style="margin-bottom:20px; color:#f5c76a;">Submit Your Requirement</h3>
+        <form id="enquiryForm">
+          <input type="text" id="name" placeholder="Your Name" required>
+          <input type="text" id="business" placeholder="Business / Shop Name" required>
+          <input type="email" id="email" placeholder="Your Email" required>
+          <input type="text" id="phone" placeholder="Phone Number" required>
+          <textarea id="requirement" rows="6" placeholder="Write your product requirement..." required></textarea>
+          <button type="submit" class="btn primary">Submit Enquiry</button>
+        </form>
+      </div>
+
+      <div class="cart-summary">
+        <h3>Selected Products</h3>
+        <div id="cartItems">
+          <p>No products added yet.</p>
+        </div>
+        <button class="btn secondary" id="sendWhatsappEnquiry">Send on WhatsApp</button>
+        <button class="btn primary" id="clearCartBtn" style="margin-top:15px;">Clear Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact">
+    <div class="section-title">
+      <p>CONTACT US</p>
+      <h2>Get Business Pricing</h2>
+      <span></span>
+    </div>
+
+    <div class="contact-container">
+      <div class="contact-info">
+        <h3>Business Contact</h3>
+        <p>📍 Jaipur, Rajasthan, India</p>
+        <p>📞 +91 98765 43210</p>
+        <p>✉ info@padmavatiindustries.com</p>
+        <p>🕒 Mon - Sat | 9:00 AM - 7:00 PM</p>
+      </div>
+
+      <div class="info-box">
+        <h3>Business Support</h3>
+        <p>
+          For bulk orders, dealership, distribution, and wholesale fragrance requirements,
+          contact Padmavati Industries through the enquiry form or WhatsApp.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <a href="https://wa.me/919876543210" class="whatsapp-btn" target="_blank">WhatsApp</a>
+  <button id="scrollTopBtn">↑</button>
+
+  <footer class="footer">
+    <h2>Padmavati Industries</h2>
+    <p>Premium Fragrance & Perfume Manufacturing</p>
+    <div class="footer-links">
+      <a href="#home">Home</a>
+      <a href="#products">Products</a>
+      <a href="#cart">Cart</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <p>© 2026 Padmavati Industries. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    // Loader
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        document.getElementById("loader").style.display = "none";
+      }, 1000);
+    });
+
+    // Mobile Menu
+    const menuToggle = document.getElementById("menuToggle");
+    const navMenu = document.getElementById("navMenu");
+
+    menuToggle.addEventListener("click", () => {
+      navMenu.classList.toggle("show");
+    });
+
+    // Search + Filter
+    const searchInput = document.getElementById("productSearch");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const productCards = document.querySelectorAll(".product-card");
+
+    function filterProducts() {
+      const searchValue = searchInput.value.toLowerCase();
+      const categoryValue = categoryFilter.value;
+
+      productCards.forEach(card => {
+        const productName = card.dataset.name.toLowerCase();
+        const productCategory = card.dataset.category;
+
+        const matchesSearch = productName.includes(searchValue);
+        const matchesCategory = categoryValue === "all" || productCategory === categoryValue;
+
+        card.style.display = matchesSearch && matchesCategory ? "block" : "none";
+      });
+    }
+
+    searchInput.addEventListener("keyup", filterProducts);
+    categoryFilter.addEventListener("change", filterProducts);
+
+    // Quantity Buttons
+    document.querySelectorAll(".product-card").forEach(card => {
+      const minusBtn = card.querySelector(".minus");
+      const plusBtn = card.querySelector(".plus");
+      const qtyInput = card.querySelector(".qty-input");
+
+      minusBtn.addEventListener("click", () => {
+        let value = parseInt(qtyInput.value);
+        if (value > 1) qtyInput.value = value - 1;
+      });
+
+      plusBtn.addEventListener("click", () => {
+        let value = parseInt(qtyInput.value);
+        qtyInput.value = value + 1;
+      });
+    });
+
+    // Scroll to Top
+    const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+    window.addEventListener("scroll", () => {
+      scrollTopBtn.style.display = window.scrollY > 300 ? "block" : "none";
+    });
+
+    scrollTopBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    // Cart System
+    let cart = JSON.parse(localStorage.getItem("padmavatiCart")) || [];
+    const cartItems = document.getElementById("cartItems");
+    const cartCount = document.getElementById("cartCount");
+    const addCartButtons = document.querySelectorAll(".add-cart");
+    const clearCartBtn = document.getElementById("clearCartBtn");
+
+    function saveCart() {
+      localStorage.setItem("padmavatiCart", JSON.stringify(cart));
+    }
+
+    function updateCartCount() {
+      cartCount.innerText = cart.length;
+    }
+
+    function renderCart() {
+      if (cart.length === 0) {
+        cartItems.innerHTML = "<p>No products added yet.</p>";
+        updateCartCount();
+        return;
+      }
+
+      cartItems.innerHTML = "";
+      cart.forEach((item, index) => {
+        cartItems.innerHTML += `
+          <div class="cart-item">
+            <strong>${item.name}</strong><br>
+            Quantity: ${item.qty}<br>
+            <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+          </div>
+        `;
+      });
+
+      updateCartCount();
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      saveCart();
+      renderCart();
+    }
+
+    addCartButtons.forEach(button => {
+      button.addEventListener("click", (e) => {
+        const productCard = e.target.closest(".product-card");
+        const name = productCard.dataset.name;
+        const qty = productCard.querySelector(".qty-input").value;
+
+        cart.push({ name, qty });
+        saveCart();
+        renderCart();
+        alert(name + " added to cart.");
+      });
+    });
+
+    clearCartBtn.addEventListener("click", () => {
+      cart = [];
+      saveCart();
+      renderCart();
+    });
+
+    renderCart();
+
+    // Enquiry Form
+    const enquiryForm = document.getElementById("enquiryForm");
+    enquiryForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      alert("Business enquiry submitted successfully!");
+      enquiryForm.reset();
+    });
+
+    // WhatsApp Enquiry
+    const sendWhatsappEnquiry = document.getElementById("sendWhatsappEnquiry");
+    sendWhatsappEnquiry.addEventListener("click", () => {
+      if (cart.length === 0) {
+        alert("Please add products first.");
+        return;
+      }
+
+      let message = "Hello Padmavati Industries, I am interested in:%0A%0A";
+      cart.forEach(item => {
+        message += `• ${item.name} - Qty: ${item.qty}%0A`;
+      });
+
+      window.open(`https://wa.me/919876543210?text=${message}`, "_blank");
+    });
+  </script>
+
+</body>
+</html>
